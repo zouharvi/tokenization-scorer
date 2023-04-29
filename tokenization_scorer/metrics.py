@@ -2,12 +2,6 @@ from collections import Counter
 import numpy as np
 import sys
 
-
-def _seq_len(text):
-    # negate so that higher is always better
-    return -np.average([len(l) for l in text])
-
-
 def get_prob_distribution(text):
     words_freqs = list(Counter((w for l in text for w in l)).most_common())
     total_subwords = sum([x[1] for x in words_freqs])
@@ -22,6 +16,9 @@ def get_prob_distribution(text):
     vocab_size = len(words_freqs)
     return freqs, probs, vocab_size
 
+def _seq_len(text, **kwargs):
+    # negate so that higher is always better
+    return -np.average([len(l) for l in text])
 
 def _renyi_efficiency(text, **kwargs):
     # set default

@@ -3,7 +3,6 @@ import argparse
 import tqdm
 from .metrics import get_metric
 
-
 def score(
     text: Union[str, Generator, List[Generator]],
     metric: str = "renyi",
@@ -11,7 +10,7 @@ def score(
 ) -> float:
     # be generous when parsing the input to allow for list of files and strings
     if type(text) == str:
-        text = [l for l in tqdm.tqdm(text.split("\n"))]
+        text = [l.split() for l in tqdm.tqdm(text.split("\n"))]
     else:
         text = list(text)
         if type(text[0]) != str:
