@@ -1,4 +1,4 @@
-# `tokenization-scorer`
+# `tokenization-scorer` [![PyPI Version](https://img.shields.io/pypi/v/tokenization-scorer.svg)](https://pypi.python.org/pypi/tokenization-scorer)
 
 Simple package for evaluating text tokenizations.
 The input is a text (list of files or stdin) and output a single number.
