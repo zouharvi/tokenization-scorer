@@ -31,7 +31,7 @@ tokenization_scorer.score(text2, metric="renyi", power=3.0)
 ```
 
 Use `tokenization-scorer -h` to get an overview of supported metrics.
-This package is a side-product of the paper "Tokenization and the Noiseless Channel" (citation and paper WIP, [experiment repository](github.com/zouharvi/tokenization-principle)).
+This package is a side-product of the paper "Tokenization and the Noiseless Channel" (citation and paper WIP).
 
 <!-- 
 python3 -m build
