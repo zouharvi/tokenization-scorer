@@ -22,16 +22,26 @@ or within Python:
 ```python
 import tokenization_scorer
 text1 = "pick @@ed pick @@l @@ed pick @@les"
-tokenization_scorer.score(text1, metric="renyi", power=3.0)
+tokenization_scorer.score(text1, metric="renyi", power=2.5)
 > 0.8031528501359657
 
 text2 = "pick @@e @@d pick @@l @@e @@d pick @@l @@e @@s"
-tokenization_scorer.score(text2, metric="renyi", power=3.0)
+tokenization_scorer.score(text2, metric="renyi", power=2.5)
 > 0.9105681923824472
 ```
 
 Use `tokenization-scorer -h` to get an overview of supported metrics.
-This package is a side-product of the paper "Tokenization and the Noiseless Channel" (citation and paper WIP).
+This package is a side-product of the paper [Tokenization and the Noiseless Channel](https://arxiv.org/abs/2306.16842).
+
+```
+@inproceedings{tokenization_noiseless, 
+    title={Tokenization and the Noiseless Channel},
+    author={Zouhar, Vilém and Meister, Clara and Gastaldi, Juan Luis and Sachan, Mrinmaya and Cotterell, Ryan},
+    booktitle={Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics},
+    year={2023},
+    url={https://arxiv.org/abs/2306.16842},
+}
+```
 
 <!-- 
 python3 -m build
