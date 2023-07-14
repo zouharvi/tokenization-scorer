@@ -31,7 +31,7 @@ tokenization_scorer.score(text2, metric="renyi", power=2.5)
 ```
 
 Use `tokenization-scorer -h` to get an overview of supported metrics.
-This package is a side-product of the paper [Tokenization and the Noiseless Channel](https://arxiv.org/abs/2306.16842).
+This package is a side-product of the paper [Tokenization and the Noiseless Channel](https://aclanthology.org/2023.acl-long.284/).
 
 ```
 @inproceedings{tokenization_noiseless, 
@@ -39,7 +39,7 @@ This package is a side-product of the paper [Tokenization and the Noiseless Chan
     author={Zouhar, Vilém and Meister, Clara and Gastaldi, Juan Luis and Sachan, Mrinmaya and Cotterell, Ryan},
     booktitle={Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics},
     year={2023},
-    url={https://arxiv.org/abs/2306.16842},
+    url={https://aclanthology.org/2023.acl-long.284/},
 }
 ```
 
