@@ -2,15 +2,12 @@ import setuptools
 
 setuptools.setup(
     name='tokenization-scorer',
-    version='1.0.1',
+    version='1.0.2',
     author='Vilém Zouhar',
     author_email='vzouhar@ethz.ch',
     description=('Package for evaluating text tokenizations.'),
-    long_description="""
-        Simple package for evaluating text tokenizations. The input is a text (list of files or stdin) and output a single number.
-        The higher the number, the better the tokenization.
-        The intended workflow is to try multiple tokenizations and select the one with the highest number.
-    """,
+    long_description=open("README.md").read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/zouharvi/tokenization-scorer',
     packages=['tokenization_scorer'],
     entry_points={
