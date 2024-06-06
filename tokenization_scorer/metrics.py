@@ -49,7 +49,7 @@ def _renyi_entropy(text, **kwargs):
     _, word_probs, _ = get_prob_distribution(text)
 
     if kwargs["power"] == 1.0:
-        return _shannon_efficiency(text, **kwargs)
+        return _shannon_entropy(text, **kwargs)
     else:
         scale = 1 / (1 - kwargs["power"])
 
