@@ -33,10 +33,9 @@ def _renyi_efficiency(text, **kwargs):
     else:
         scale = 1 / (1 - kwargs["power"])
 
-    val = scale * np.log2(np.sum([
-        prob**kwargs["power"]
-        for prob in word_probs
-    ])) / np.log2(vocab_size)
+    val = scale * np.log2(np.sum(
+        np.array(word_probs) ** kwargs["power"]
+    )) / np.log2(vocab_size)
     return val
 
 
@@ -53,10 +52,9 @@ def _renyi_entropy(text, **kwargs):
     else:
         scale = 1 / (1 - kwargs["power"])
 
-    val = scale * np.log2(np.sum([
-        prob**kwargs["power"]
-        for prob in word_probs
-    ]))
+    val = scale * np.log2(np.sum(
+        np.array(word_probs) ** kwargs["power"]
+    ))
     return val
 
 
