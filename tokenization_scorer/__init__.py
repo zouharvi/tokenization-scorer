@@ -48,6 +48,7 @@ def entry():
         help="""
             Pass parameters to the metrics. If no parameters are specified, defaults are used.
             All renyi metrics require `-e power=FLOAT` parameter (default 3.0). percentile_freq metric requires `-e perc_start=FLOAT -e perc_end=FLOAT`.
+            Entropy efficiency metrics can also take `-e vocab=INT` to override the observed vocabulary size.
         """
     )
     args = args.parse_args()

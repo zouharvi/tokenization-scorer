@@ -33,6 +33,11 @@ def _renyi_efficiency(text, **kwargs):
     else:
         scale = 1 / (1 - kwargs["power"])
 
+    # override observed vocabulary size
+    if "vocab" in kwargs:
+        vocab_size = kwargs["vocab"]
+    print(f"Vocabulary size {vocab_size}", file=sys.stderr)
+
     val = scale * np.log2(np.sum(
         np.array(word_probs) ** kwargs["power"]
     )) / np.log2(vocab_size)
@@ -65,6 +70,12 @@ def _shannon_entropy(text, **kwargs):
 
 def _shannon_efficiency(text, **kwargs):
     _, word_probs, vocab_size = get_prob_distribution(text)
+    
+    # override observed vocabulary size
+    if "vocab" in kwargs:
+        vocab_size = kwargs["vocab"]
+    print(f"Vocabulary size {vocab_size}", file=sys.stderr)
+    
     return -np.sum(word_probs * np.log2(word_probs)) / np.log2(vocab_size)
 
 
