@@ -1,5 +1,5 @@
 from typing import Union, Generator, List
-import argparse
+import argparse, itertools
 import tqdm
 from .metrics import get_metric
 
@@ -12,18 +12,19 @@ def score(
     if type(text) == str:
         text = [l.split() for l in tqdm.tqdm(text.split("\n"))]
     else:
-        text = list(text)
-        if type(text[0]) != str:
+        # text = list(text)
+        text, peekable = itertools.tee(text)
+        if type(next(peekable)) != str:
             # flatten once more
-            text = [w for l in text for w in tqdm.tqdm(l)]
-        text = [l.rstrip("\n").split() for l in tqdm.tqdm(text)]
+            text = (w for l in text for w in tqdm.tqdm(l))
+        text = (l.rstrip("\n").split() for l in tqdm.tqdm(text))
 
     # cleanup (remove empty lines and words)
-    text = [
-        [w.strip() for w in l if w.strip()]
+    text = (
+        (w.strip() for w in l if w.strip())
         for l in text
-    ]
-    text = [l for l in text if l]
+    )
+    text = (l for l in text if l)
     score_val = get_metric(metric)(text, **kwargs)
 
     return score_val

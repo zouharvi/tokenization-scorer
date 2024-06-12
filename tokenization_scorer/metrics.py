@@ -3,11 +3,11 @@ import numpy as np
 import sys
 
 def get_prob_distribution(text):
-    words_freqs = list(Counter((w for l in text for w in l)).most_common())
-    total_subwords = sum([x[1] for x in words_freqs])
+    words_freqs = Counter((w for l in text for w in l)).most_common()
+    total_subwords = sum(x[1] for x in words_freqs)
     freqs = [
         freq
-        for word, freq in words_freqs
+        for _, freq in words_freqs
     ]
     probs = [
         freq / total_subwords
