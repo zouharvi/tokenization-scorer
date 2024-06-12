@@ -12,7 +12,6 @@ def score(
     if type(text) == str:
         text = [l.split() for l in tqdm.tqdm(text.split("\n"))]
     else:
-        # text = list(text)
         text, peekable = itertools.tee(text)
         if type(next(peekable)) != str:
             # flatten once more
