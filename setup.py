@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='tokenization-scorer',
-    version='1.1.1',
+    version='1.1.2',
     author='Vilém Zouhar',
     author_email='vzouhar@ethz.ch',
     description=('Package for evaluating text tokenizations.'),
