@@ -18,7 +18,8 @@ def get_prob_distribution(text):
 
 def _seq_len(text, **kwargs):
     # negate so that higher is always better
-    return -np.average([len(w) for l in text for w in l])
+    # summing 1s won't expand the whole generator into memory
+    return -np.average([sum(1 for _ in l) for l in text])
 
 def _renyi_efficiency(text, **kwargs):
     # set default
