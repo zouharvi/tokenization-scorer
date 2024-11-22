@@ -14,9 +14,8 @@ def score(
         line_count = len(text)
     else:
         text, peekable1, peekable2 = itertools.tee(text, 3)
-        line_count = 1
+        line_count = len(list(peekable2))  # assumes outer iteration to be lines
         if type(next(peekable1)) != str:
-            line_count = len(list(peekable2))
             # flatten once more
             text = (w for l in text for w in tqdm.tqdm(l))
         text = (l.rstrip("\n").split() for l in tqdm.tqdm(text))
