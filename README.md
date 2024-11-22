@@ -45,5 +45,5 @@ This package is a side-product of the paper [Tokenization and the Noiseless Chan
 
 <!-- 
 python3 -m build
-python3 -m twine upload dist/*
+python3 -m twine upload dist/* -u __token__
 -->
