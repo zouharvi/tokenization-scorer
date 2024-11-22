@@ -11,9 +11,12 @@ def score(
     # be generous when parsing the input to allow for list of files and strings
     if type(text) == str:
         text = [l.split() for l in tqdm.tqdm(text.split("\n"))]
+        line_count = len(text)
     else:
-        text, peekable = itertools.tee(text)
-        if type(next(peekable)) != str:
+        text, peekable1, peekable2 = itertools.tee(text, 3)
+        line_count = 1
+        if type(next(peekable1)) != str:
+            line_count = len(list(peekable2))
             # flatten once more
             text = (w for l in text for w in tqdm.tqdm(l))
         text = (l.rstrip("\n").split() for l in tqdm.tqdm(text))
@@ -25,6 +28,10 @@ def score(
     )
     text = (l for l in text if l)
     score_val = get_metric(metric)(text, **kwargs)
+
+    # line-normalize sequence length
+    if metric in {"sequence_len", "seq_len"}:
+        score_val /= line_count
 
     return score_val
 
@@ -38,9 +45,15 @@ def entry():
     args.add_argument("-i", "--input", nargs="+", default=None)
     args.add_argument(
         "-m", "--metric", default="renyi",
+        choices=[
+            "renyi", "renyi_efficiency", "renyi_entropy",
+            "shannon_efficiency", "shannon_entropy", "shannon", "entropy",
+            "sequence_length", "seq_len", "document_length", "doc_len",
+            "gowda", "percentile_freq", "perc_freq", "bits",
+            "bits",
+        ],
         help="""
-            Available metrics: renyi_efficiency (default), renyi_entropy, shannon_efficiency, 
-            shannon_entropy, percentile_freq, bits, sequence_len.
+            Which metric to use.
         """
     )
     args.add_argument(

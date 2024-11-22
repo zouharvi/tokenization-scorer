@@ -136,6 +136,8 @@ def get_metric(metric):
         return _shannon_entropy
     elif metric in {"sequence_length", "seq_len"}:
         return _seq_len
+    elif metric in {"document_length", "doc_len"}:
+        return _seq_len
     elif metric in {"gowda", "percentile_freq", "perc_freq"}:
         return _percentile_freq
     elif metric in {"bits"}:
