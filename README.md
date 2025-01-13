@@ -1,4 +1,4 @@
-# `tokenization-scorer` [![PyPI Version](https://img.shields.io/pypi/v/tokenization-scorer.svg)](https://pypi.python.org/pypi/tokenization-scorer)
+# tokenization-scorer &nbsp;&nbsp;&nbsp; [![PyPI Version](https://img.shields.io/pypi/v/tokenization-scorer.svg)](https://pypi.python.org/pypi/tokenization-scorer) [![test tokenization-scorer](https://github.com/zouharvi/tokenization-scorer/actions/workflows/test.yml/badge.svg)](https://github.com/zouharvi/tokenization-scorer/actions/workflows/test.yml)
 
 Simple package for evaluating text tokenizations.
 The input is a text (list of files or stdin) and output a single number.
@@ -42,8 +42,3 @@ This package is a side-product of the paper [Tokenization and the Noiseless Chan
     url={https://aclanthology.org/2023.acl-long.284/},
 }
 ```
-
-<!-- 
-python3 -m build
-python3 -m twine upload dist/* -u __token__
--->

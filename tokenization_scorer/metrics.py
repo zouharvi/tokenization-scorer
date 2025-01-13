@@ -120,9 +120,9 @@ def _percentile_freq(text, **kwargs):
 
 
 def _bits(text, **kwargs):
-    _, _, vocab_size = get_prob_distribution(text)
+    freqs, _, vocab_size = get_prob_distribution(text)
     # negate so that higher is better
-    return -len([w for l in text for w in l]) * np.log2(vocab_size)
+    return -sum(freqs) * np.log2(vocab_size)
 
 
 def get_metric(metric):
@@ -134,7 +134,7 @@ def get_metric(metric):
         return _shannon_efficiency
     elif metric in {"entropy", "shannon_entropy"}:
         return _shannon_entropy
-    elif metric in {"sequence_length", "seq_len"}:
+    elif metric in {"sequence_length", "sequence_len", "seq_len"}:
         return _seq_len
     elif metric in {"document_length", "doc_len"}:
         return _seq_len

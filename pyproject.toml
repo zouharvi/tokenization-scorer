@@ -1,8 +1,38 @@
+
 [build-system]
 requires = [
-    "setuptools>=42",
+    "setuptools>=65",
     "wheel",
-    "numpy>=1.0",
-    "tqdm>=4.0"
 ]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["tokenization_scorer"]
+
+[project]
+name = "tokenization-scorer"
+version = "1.1.8"
+description = "Package for evaluating text tokenizations."
+license = {text = "MIT License"}
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  {name = "Vilém Zouhar", email = "vilem.zouhar@gmail.com"},
+]
+keywords = ["tokenization", "evaluation", "natural language processing"]
+dependencies = [
+    "tqdm>=4.0",
+    "numpy>=2.0",
+]
+
+[project.urls]
+Repository = "https://github.com/zouharvi/tokenization-scorer"
+Issues = "https://github.com/zouharvi/tokenization-scorer/issues"
+
+[project.scripts]
+tokenization-scorer = "tokenization_scorer:entry"
+tokenization_scorer = "tokenization_scorer:entry"
+
+# python3 -m build
+# twine check dist/*
+# twine upload dist/* -u __token__
