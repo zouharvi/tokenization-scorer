@@ -1,4 +1,10 @@
-# tokenization-scorer &nbsp;&nbsp;&nbsp; [![PyPI Version](https://img.shields.io/pypi/v/tokenization-scorer.svg)](https://pypi.python.org/pypi/tokenization-scorer) [![test tokenization-scorer](https://github.com/zouharvi/tokenization-scorer/actions/workflows/test.yml/badge.svg)](https://github.com/zouharvi/tokenization-scorer/actions/workflows/test.yml)
+# tokenization-scorer &nbsp;&nbsp;&nbsp;
+
+[![PyPI Version](https://img.shields.io/pypi/v/tokenization-scorer.svg)](https://pypi.python.org/pypi/tokenization-scorer)
+&nbsp;
+[![test tokenization-scorer](https://github.com/zouharvi/tokenization-scorer/actions/workflows/test.yml/badge.svg)](https://github.com/zouharvi/tokenization-scorer/actions/workflows/test.yml)
+&nbsp;
+[![Paper](https://img.shields.io/badge/📜%20paper-481.svg)](https://aclanthology.org/2023.acl-long.284/)
 
 Simple package for evaluating text tokenizations.
 The input is a text (list of files or stdin) and output a single number.
