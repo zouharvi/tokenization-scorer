@@ -37,7 +37,7 @@ tokenization_scorer.score(text2, metric="renyi", power=2.5)
 ```
 
 Use `tokenization-scorer -h` to get an overview of supported metrics.
-This package is a side-product of the paper [Tokenization and the Noiseless Channel](https://aclanthology.org/2023.acl-long.284/).
+This package is a side-product of the paper [Tokenization and the Noiseless Channel](https://aclanthology.org/2023.acl-long.284/) which has [code here](https://github.com/zouharvi/tokenization-principle).
 
 ```
 @inproceedings{tokenization_noiseless, 
