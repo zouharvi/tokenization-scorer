@@ -33,8 +33,8 @@ def test_bits():
 def test_seq_len():
     assert abs(tokenization_scorer.score(text1, metric="sequence_len") - -7) <= 0
     assert abs(tokenization_scorer.score(text2, metric="sequence_len") - -11) <= 0
-    assert abs(tokenization_scorer.score([text1], metric="sequence_len") - -7) <= 0
-    assert abs(tokenization_scorer.score([text2], metric="sequence_len") - -11) <= 0
+    assert abs(tokenization_scorer.score([text1], metric="sequence_len") - -7) <= 0  # type: ignore
+    assert abs(tokenization_scorer.score([text2], metric="sequence_len") - -11) <= 0  # type: ignore
 
 
 def test_dispersion():

@@ -1,6 +1,9 @@
-from typing import Union, Generator, List
-import argparse, itertools
+import argparse
+import itertools
+from collections.abc import Generator
+
 import tqdm
+
 from .metrics import get_metric
 
 METRIC_TITLES = {
@@ -35,22 +38,22 @@ METRIC_TITLES = {
 }
 
 def score(
-    text: Union[str, Generator, List[Generator]],
+    text: str | Generator | list[Generator],
     metric: str = "renyi",
     verbose: bool = False,
     **kwargs
 ) -> float:
     # be generous when parsing the input to allow for list of files and strings
     if type(text) == str:
-        text = [l.split() for l in tqdm.tqdm(text.split("\n"), disable=not verbose)]
-        line_count = len(text)
+        text = [l.split() for l in tqdm.tqdm(text.split("\n"), disable=not verbose)]  # type: ignore
+        line_count = len(text)  # type: ignore
     else:
-        text, peekable1, peekable2 = itertools.tee(text, 3)
+        text, peekable1, peekable2 = itertools.tee(text, 3)  # type: ignore
         line_count = len(list(peekable2))  # assumes outer iteration to be lines
         if type(next(peekable1)) != str:
             # flatten once more
             text = (w for l in text for w in tqdm.tqdm(l, disable=not verbose))
-        text = (l.rstrip("\n").split() for l in tqdm.tqdm(text, disable=not verbose))
+        text = (l.rstrip("\n").split() for l in tqdm.tqdm(text, disable=not verbose))  # type: ignore
 
     # cleanup (remove empty lines and words)
     text = (
@@ -107,9 +110,9 @@ def entry():
         args.input = [open(f, "r") for f in args.input]
 
     score_val = score(
-        [f.readlines() for f in args.input],
+        [f.readlines() for f in args.input],  # type: ignore
         metric=args.metric,
         # extra metrics argument
-        **{x.split("=")[0]: float(x.split("=")[1]) for x in args.extra}
+        **{x.split("=")[0]: float(x.split("=")[1]) for x in args.extra}  # type: ignore
     )
     print(score_val)

@@ -1,9 +1,11 @@
-from collections import Counter
-import numpy as np
 import sys
+from collections import Counter
+
+import numpy as np
+
 
 def get_prob_distribution(text):
-    words_freqs = Counter((w for l in text for w in l)).most_common()
+    words_freqs = Counter(w for l in text for w in l).most_common()
     total_subwords = sum(x[1] for x in words_freqs)
     freqs = [
         freq
@@ -165,7 +167,7 @@ def _aggregate_deviation(text, **kwargs):
         mode_idx = np.argwhere(counts == np.max(counts))
         c = freqs[mode_idx[0][0]]
     else:
-        raise Exception(f"Unknown central measure {central}")
+        raise ValueError(f"Unknown central measure {central}")
 
     power = kwargs.get("power", 1.0)
     if np.ceil(power) != power:
@@ -181,7 +183,7 @@ def _aggregate_deviation(text, **kwargs):
     elif agg == "sqrt":
         return float(np.sqrt(abs(np.sum(vals) / max(len(vals) - 1, 1))))
     else:
-        raise Exception(f"Unknown aggregator {agg}")
+        raise ValueError(f"Unknown aggregator {agg}")
 
 
 def get_metric(metric):
@@ -193,9 +195,7 @@ def get_metric(metric):
         return _shannon_efficiency
     elif metric in {"entropy", "shannon_entropy"}:
         return _shannon_entropy
-    elif metric in {"sequence_length", "sequence_len", "seq_len"}:
-        return _seq_len
-    elif metric in {"document_length", "doc_len", "subwords"}:
+    elif metric in {"sequence_length", "sequence_len", "seq_len"} or metric in {"document_length", "doc_len", "subwords"}:
         return _seq_len
     elif metric in {"gowda", "percentile_freq", "perc_freq"}:
         return _percentile_freq
@@ -210,4 +210,4 @@ def get_metric(metric):
     elif metric in {"aggregate_deviation", "agg_deviation"}:
         return _aggregate_deviation
     else:
-        raise Exception(f"Unknown metric name {metric}")
+        raise ValueError(f"Unknown metric name {metric}")
