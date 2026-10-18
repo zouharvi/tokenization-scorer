@@ -3,22 +3,54 @@ import argparse, itertools
 import tqdm
 from .metrics import get_metric
 
+METRIC_TITLES = {
+    "renyi": "Rényi efficiency",
+    "renyi_efficiency": "Rényi efficiency",
+    "renyi_eff": "Rényi efficiency",
+    "renyi_entropy": "Rényi entropy",
+    "shannon": "Entropy efficiency",
+    "shannon_efficiency": "Entropy efficiency",
+    "entropy_eff": "Entropy efficiency",
+    "entropy": "Entropy",
+    "shannon_entropy": "Entropy",
+    "seq_len": "Sequence length",
+    "sequence_length": "Sequence length",
+    "sequence_len": "Sequence length",
+    "doc_len": "Document length",
+    "document_length": "Document length",
+    "subwords": "Subwords",
+    "bits": "Encoded bits with fixed-width",
+    "gowda": "Percentile freq.",
+    "percentile_freq": "Percentile freq.",
+    "perc_freq": "Percentile freq.",
+    "coefficient_variation": "Coefficient of variation",
+    "cov": "Coefficient of variation",
+    "coeff_var": "Coefficient of variation",
+    "quartile_dispersion": "Quartile dispersion",
+    "qd": "Quartile dispersion",
+    "inter_quantile_range": "Inter-quantile range",
+    "iqr": "Inter-quantile range",
+    "aggregate_deviation": "Aggregate deviation",
+    "agg_deviation": "Aggregate deviation",
+}
+
 def score(
     text: Union[str, Generator, List[Generator]],
     metric: str = "renyi",
+    verbose: bool = False,
     **kwargs
 ) -> float:
     # be generous when parsing the input to allow for list of files and strings
     if type(text) == str:
-        text = [l.split() for l in tqdm.tqdm(text.split("\n"))]
+        text = [l.split() for l in tqdm.tqdm(text.split("\n"), disable=not verbose)]
         line_count = len(text)
     else:
         text, peekable1, peekable2 = itertools.tee(text, 3)
         line_count = len(list(peekable2))  # assumes outer iteration to be lines
         if type(next(peekable1)) != str:
             # flatten once more
-            text = (w for l in text for w in tqdm.tqdm(l))
-        text = (l.rstrip("\n").split() for l in tqdm.tqdm(text))
+            text = (w for l in text for w in tqdm.tqdm(l, disable=not verbose))
+        text = (l.rstrip("\n").split() for l in tqdm.tqdm(text, disable=not verbose))
 
     # cleanup (remove empty lines and words)
     text = (

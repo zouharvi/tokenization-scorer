@@ -185,11 +185,11 @@ def _aggregate_deviation(text, **kwargs):
 
 
 def get_metric(metric):
-    if metric in {"renyi", "renyi_efficiency"}:
+    if metric in {"renyi", "renyi_efficiency", "renyi_eff"}:
         return _renyi_efficiency
     elif metric in {"renyi_entropy"}:
         return _renyi_entropy
-    elif metric in {"shannon", "shannon_efficiency"}:
+    elif metric in {"shannon", "shannon_efficiency", "entropy_eff"}:
         return _shannon_efficiency
     elif metric in {"entropy", "shannon_entropy"}:
         return _shannon_entropy
