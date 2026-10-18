@@ -47,9 +47,12 @@ def entry():
         choices=[
             "renyi", "renyi_efficiency", "renyi_entropy",
             "shannon_efficiency", "shannon_entropy", "shannon", "entropy",
-            "sequence_length", "seq_len", "document_length", "doc_len",
+            "sequence_length", "seq_len", "document_length", "doc_len", "subwords",
             "gowda", "percentile_freq", "perc_freq", "bits",
-            "bits",
+            "coefficient_variation", "cov", "coeff_var",
+            "quartile_dispersion", "qd",
+            "inter_quantile_range", "iqr",
+            "aggregate_deviation", "agg_deviation",
         ],
         help="""
             Which metric to use.

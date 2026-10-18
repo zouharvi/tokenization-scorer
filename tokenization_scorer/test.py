@@ -35,3 +35,11 @@ def test_seq_len():
     assert abs(tokenization_scorer.score(text2, metric="sequence_len") - -11) <= 0
     assert abs(tokenization_scorer.score([text1], metric="sequence_len") - -7) <= 0
     assert abs(tokenization_scorer.score([text2], metric="sequence_len") - -11) <= 0
+
+
+def test_dispersion():
+    assert abs(tokenization_scorer.score(text1, metric="coefficient_variation") - 0.4738) < 0.01
+    assert abs(tokenization_scorer.score(text1, metric="quartile_dispersion", perc_start=0.25, perc_end=0.75) - -0.333) < 0.01
+    assert abs(tokenization_scorer.score(text1, metric="inter_quantile_range", perc_start=0.25, perc_end=0.75) - -0.142) < 0.01
+    assert abs(tokenization_scorer.score(text1, metric="aggregate_deviation") - 0.0) < 0.001
+    assert abs(tokenization_scorer.score(text1, metric="subwords") - -7) <= 0

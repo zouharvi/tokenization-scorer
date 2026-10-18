@@ -125,6 +125,65 @@ def _bits(text, **kwargs):
     return -sum(freqs) * np.log2(vocab_size)
 
 
+def _coefficient_variation(text, **kwargs):
+    freqs, _, _ = get_prob_distribution(text)
+    return float(np.std(freqs) / np.average(freqs))
+
+
+def _quartile_dispersion(text, **kwargs):
+    freqs, _, _ = get_prob_distribution(text)
+    perc_start = kwargs.get("perc_start", kwargs.get("freq_alpha_start", 0.25))
+    perc_end = kwargs.get("perc_end", kwargs.get("freq_alpha_end", 0.75))
+    index_start = int(len(freqs) * perc_start)
+    index_end = min(int(len(freqs) * perc_end), len(freqs) - 1)
+    denom = freqs[index_end] + freqs[index_start]
+    if denom == 0:
+        return 0.0
+    return float((freqs[index_end] - freqs[index_start]) / denom)
+
+
+def _inter_quantile_range(text, **kwargs):
+    freqs, probs, _ = get_prob_distribution(text)
+    base = kwargs.get("base_vals", "probs")
+    vals = probs if base == "probs" else freqs
+    perc_start = kwargs.get("perc_start", kwargs.get("freq_alpha_start", 0.25))
+    perc_end = kwargs.get("perc_end", kwargs.get("freq_alpha_end", 0.75))
+    index_start = int(len(vals) * perc_start)
+    index_end = min(int(len(vals) * perc_end), len(vals) - 1)
+    return float(vals[index_end] - vals[index_start])
+
+
+def _aggregate_deviation(text, **kwargs):
+    freqs, _, _ = get_prob_distribution(text)
+    central = kwargs.get("central_measure", "mean")
+    if central == "mean":
+        c = np.mean(freqs)
+    elif central == "median":
+        c = np.median(freqs)
+    elif central == "mode":
+        _, counts = np.unique(freqs, return_counts=True)
+        mode_idx = np.argwhere(counts == np.max(counts))
+        c = freqs[mode_idx[0][0]]
+    else:
+        raise Exception(f"Unknown central measure {central}")
+
+    power = kwargs.get("power", 1.0)
+    if np.ceil(power) != power:
+        vals = np.abs(np.array(freqs) - c) ** power
+    else:
+        vals = (np.array(freqs) - c) ** power
+
+    agg = kwargs.get("aggregator", "mean")
+    if agg == "mean":
+        return float(np.average(vals))
+    elif agg == "median":
+        return float(np.median(vals))
+    elif agg == "sqrt":
+        return float(np.sqrt(abs(np.sum(vals) / max(len(vals) - 1, 1))))
+    else:
+        raise Exception(f"Unknown aggregator {agg}")
+
+
 def get_metric(metric):
     if metric in {"renyi", "renyi_efficiency"}:
         return _renyi_efficiency
@@ -136,11 +195,19 @@ def get_metric(metric):
         return _shannon_entropy
     elif metric in {"sequence_length", "sequence_len", "seq_len"}:
         return _seq_len
-    elif metric in {"document_length", "doc_len"}:
+    elif metric in {"document_length", "doc_len", "subwords"}:
         return _seq_len
     elif metric in {"gowda", "percentile_freq", "perc_freq"}:
         return _percentile_freq
     elif metric in {"bits"}:
         return _bits
+    elif metric in {"coefficient_variation", "cov", "coeff_var"}:
+        return _coefficient_variation
+    elif metric in {"quartile_dispersion", "qd"}:
+        return _quartile_dispersion
+    elif metric in {"inter_quantile_range", "iqr"}:
+        return _inter_quantile_range
+    elif metric in {"aggregate_deviation", "agg_deviation"}:
+        return _aggregate_deviation
     else:
         raise Exception(f"Unknown metric name {metric}")
