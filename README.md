@@ -7,7 +7,7 @@
 [![Paper](https://img.shields.io/badge/📜%20paper-481.svg)](https://aclanthology.org/2023.acl-long.284/)
 
 Simple package for evaluating text tokenizations.
-The input is a text (list of files or stdin) and output a single number.
+The input is a text (list of files or standard input) and output a single number.
 The higher the number, the better the tokenization.
 The intended workflow is to try multiple tokenizations and select the one with the highest number.
 
